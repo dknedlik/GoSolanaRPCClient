@@ -35,19 +35,25 @@ func (c SolanaClient) GetAccountInfo(id string) (*AccountInfo, error) {
 	if err != nil {
 		return nil, err
 	}
-	var m AcctInfoRPCResponse
-	dec := json.NewDecoder(strings.NewReader(string(*response)))
-	dec.UseNumber()
-
-	err = dec.Decode(&m)
-	if err != nil {
-		fmt.Println("error decoding json", err)
+	bytes, err := json.Marshal(response.Result)
+	if err != nil{
+		fmt.Println("error marshalling get account info response")
 		return nil, err
 	}
-	return &m.Result.Value, nil
+	var m SolAccountInfoResponse
+	dec := json.NewDecoder(strings.NewReader(string(bytes)))
+	dec.UseNumber()
+	err = dec.Decode(&m)
+	if err != nil{
+		fmt.Println("error decoding get account info response")
+		return nil, err
+	}
+
+	fmt.Println("decoded data: ", m)
+	return &m.Value, nil
 }
 
-func (c SolanaClient) sendRequest(req RPCRequest) (*[]byte, error) {
+func (c SolanaClient) sendRequest(req RPCRequest) (*RPCResponse, error) {
 	reqJSON, error := json.Marshal(req)
 	if error != nil {
 		fmt.Printf("Error marshalling request data %s/n", error)
@@ -71,6 +77,15 @@ func (c SolanaClient) sendRequest(req RPCRequest) (*[]byte, error) {
 	//fmt.Println("response Status:", response.Status)
 	//fmt.Println("response Headers:", response.Header)
 	body, _ := io.ReadAll(response.Body)
-	fmt.Println("response Body:", string(body))
-	return &body, nil
+	var m RPCResponse
+	dec := json.NewDecoder(strings.NewReader(string(body)))
+	dec.UseNumber()
+
+	error = dec.Decode(&m)
+	if error != nil{
+		fmt.Println("Error decoding response", error)
+		return nil, error	
+	}
+	//fmt.Println("response Body:", string(body))
+	return &m, nil
 }

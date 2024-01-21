@@ -1,9 +1,10 @@
 package golangsolanarpc
 
-type Commitment string
 type SolanaClient struct {
 	RpcEndpoint string
 }
+
+type Commitment string
 
 type AccountInfo struct {
 	Lamports   uint64   `json:"lamports"`
@@ -27,11 +28,11 @@ type RPCRequest struct {
 	JsonRpcVersion string      `json:"jsonrpc"`
 }
 
-type AcctInfoRPCResponse struct {
-	JsonRpcVersion string                 `json:"jsonrpc"`
-	Result         SolAccountInfoResponse `json:"result,omitempty"`
-	Error          *RPCError              `json:"error,omitempty"`
-	Id             string                 `json:"id"`
+type RPCResponse struct {
+	JSONRPC string      `json:"jsonrpc"`
+	Result  interface{} `json:"result,omitempty"`
+	Error   *RPCError   `json:"error,omitempty"`
+	ID      string      `json:"id"`
 }
 
 type AccountInfoRPCResult struct {
