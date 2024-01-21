@@ -4,6 +4,12 @@ type SolanaClient struct {
 	RpcEndpoint string
 }
 
+type SolanaRPCClient interface {
+	GetAccountInfo(id string) (*AccountInfo, error)
+	GetBalance(id string) (uint64, error)
+	GetBlockHeight() (uint64, error)
+}
+
 type Commitment string
 
 type AccountInfo struct {
@@ -38,6 +44,11 @@ type RPCResponse struct {
 type AccountInfoRPCResult struct {
 	Context interface{} `json:"context"`
 	Value   AccountInfo `json:"value"`
+}
+
+type BalanceRPCResult struct {
+	Context interface{} `json:"context"`
+	Value   uint64      `json:"value"`
 }
 
 type RpcEncoding struct {

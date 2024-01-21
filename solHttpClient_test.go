@@ -22,3 +22,26 @@ func TestGetAccountInfo(t *testing.T) {
 	assert.Equal(t, resp.Executable, false)
 	assert.Equal(t, resp.Lamports, uint64(88820743038050))
 }
+
+func TestGetBalance(t *testing.T) {
+	client := SolanaClient{
+		RpcEndpoint: "https://api.devnet.solana.com",
+	}
+	resp, err := client.GetBalance("vines1vzrYbzLMRdu58ou5XTby4qAqVRLmqo36NKPTg")
+	if err != nil {
+		t.Fatal("Error getting balance")
+	}
+
+	assert.Equal(t, uint64(88820743038050), resp)
+}
+
+func TestGetBlockHeight(t *testing.T) {
+	client := SolanaClient{
+		RpcEndpoint: "https://api.devnet.solana.com",
+	}
+	height, err := client.GetBlockHeight()
+	if err != nil {
+		t.Fatal("Error getting block height")
+	}
+	assert.NotEqual(t, uint64(0), height)
+}
