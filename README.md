@@ -16,4 +16,4 @@ Basic functionality is simply create a client with the URL of the node you want 
 Details of the Solana RPC API can be found here:
 https://docs.solana.com/api/http
 
-I am in no way associated with Solana, this is a side project to learn more about the blockchain and Golang
+I am in no way associated with Solana, this is a side project to learn more about the blockchain and Golang.
