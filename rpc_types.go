@@ -202,3 +202,8 @@ type solBlockProductionResponse struct {
 	Context interface{}           `json:"context"`
 	Value   BlockProductionResult `json:"value"`
 }
+
+type BlockCommitmentResponse struct {
+	Commitment *[]uint64 `json:"commitment"`
+	TotalStake *uint64
+}
