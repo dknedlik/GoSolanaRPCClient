@@ -7,6 +7,8 @@ import (
 	"io"
 	"net/http"
 	"strings"
+
+	"github.com/google/uuid"
 )
 
 type SolanaClient struct {
@@ -67,4 +69,30 @@ func (c SolanaClient) sendRequest(req RPCRequest) (*RPCResponse, error) {
 	}
 	//fmt.Println("response Body:", string(body))
 	return &m, nil
+}
+
+func transformRPCResponse[T any](response *RPCResponse) (*T, error) {
+	bytes, err := json.Marshal(response.Result)
+	if err != nil {
+		fmt.Println("error marshalling response")
+		return nil, err
+	}
+	var m T
+	dec := json.NewDecoder(strings.NewReader(string(bytes)))
+	dec.UseNumber()
+	err = dec.Decode(&m)
+	if err != nil {
+		fmt.Println("error decoding response")
+		return nil, err
+	}
+	return &m, nil
+}
+
+func getRPCRequest(method string, params []interface{}) RPCRequest {
+	return RPCRequest{
+		Method:         method,
+		Params:         params,
+		Id:             uuid.NewString(),
+		JsonRpcVersion: jsonRpcVersion,
+	}
 }
