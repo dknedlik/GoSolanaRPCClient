@@ -24,7 +24,7 @@ func (c SolanaClient) GetBlockProduction() (*BlockProductionResult, error) {
 		fmt.Println("Error marshalling get block production response")
 		return nil, err
 	}
-	var m SolBlockProductionResponse
+	var m solBlockProductionResponse
 	dec := json.NewDecoder(strings.NewReader(string(bytes)))
 	dec.UseNumber()
 	err = dec.Decode(&m)

@@ -45,7 +45,7 @@ type RpcEncoding struct {
 	Encoding string `json:"encoding"`
 }
 
-type SolAccountInfoResponse struct {
+type solAccountInfoResponse struct {
 	Context interface{} `json:"context"`
 	Value   AccountInfo `json:"value"`
 }
@@ -198,7 +198,7 @@ type BlockProductionRange struct {
 	FirstSlot uint64 `json:"firstSlot"`
 	LastSlot  uint64 `json:"lastSlot"`
 }
-type SolBlockProductionResponse struct {
+type solBlockProductionResponse struct {
 	Context interface{}           `json:"context"`
 	Value   BlockProductionResult `json:"value"`
 }

@@ -27,7 +27,7 @@ func (c SolanaClient) GetAccountInfo(id string) (*AccountInfo, error) {
 		fmt.Println("error marshalling get account info response")
 		return nil, err
 	}
-	var m SolAccountInfoResponse
+	var m solAccountInfoResponse
 	dec := json.NewDecoder(strings.NewReader(string(bytes)))
 	dec.UseNumber()
 	err = dec.Decode(&m)
