@@ -4,7 +4,7 @@ Basic functionality is simply create a client with the URL of the node you want 
 
 ```
 	client := SolanaClient{
-		RpcEndpoint: "https://api.devnet.solana.com",
+		RpcEndpoint: test_node,
 	}
 	height, err := client.GetBlockHeight()
 	if err != nil {

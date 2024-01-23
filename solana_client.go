@@ -7,6 +7,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+
+	"github.com/google/uuid"
+)
+
+const (
+	test_node = "https://api.devnet.solana.com"
 )
 
 type SolanaClient struct {
@@ -20,6 +26,8 @@ type SolanaRPCClient interface {
 	GetBlock(slot uint64) (*BlockResponse, error)
 	GetBlockProduction() (*BlockProductionResult, error)
 	GetBlockCommitment(slot uint64) (*BlockCommitmentResponse, error)
+	GetBlocks(startSlot uint64, endSlot *uint64) (*BlocksResponse, error)
+	GetBlocksWithLimit(startSlot uint64, limit uint64) (*BlocksResponse, error)
 }
 
 const (
@@ -67,4 +75,30 @@ func (c SolanaClient) sendRequest(req RPCRequest) (*RPCResponse, error) {
 	}
 	//fmt.Println("response Body:", string(body))
 	return &m, nil
+}
+
+func transformRPCResponse[T any](response *RPCResponse) (*T, error) {
+	bytes, err := json.Marshal(response.Result)
+	if err != nil {
+		fmt.Println("error marshalling response")
+		return nil, err
+	}
+	var m T
+	dec := json.NewDecoder(strings.NewReader(string(bytes)))
+	dec.UseNumber()
+	err = dec.Decode(&m)
+	if err != nil {
+		fmt.Println("error decoding response")
+		return nil, err
+	}
+	return &m, nil
+}
+
+func getRPCRequest(method string, params []interface{}) RPCRequest {
+	return RPCRequest{
+		Method:         method,
+		Params:         params,
+		Id:             uuid.NewString(),
+		JsonRpcVersion: jsonRpcVersion,
+	}
 }

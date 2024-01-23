@@ -8,7 +8,7 @@ import (
 
 func TestGetAccountInfo(t *testing.T) {
 	client := SolanaClient{
-		RpcEndpoint: "https://api.devnet.solana.com",
+		RpcEndpoint: test_node,
 	}
 	resp, err := client.GetAccountInfo("vines1vzrYbzLMRdu58ou5XTby4qAqVRLmqo36NKPTg")
 	if err != nil {

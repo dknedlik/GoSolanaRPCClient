@@ -8,7 +8,7 @@ import (
 
 func TestGetBlockCommitement(t *testing.T) {
 	client := SolanaClient{
-		RpcEndpoint: "https://api.devnet.solana.com",
+		RpcEndpoint: test_node,
 	}
 	response, err := client.GetBlockCommitment(500)
 	if err != nil {

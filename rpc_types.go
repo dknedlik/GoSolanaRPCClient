@@ -207,3 +207,7 @@ type BlockCommitmentResponse struct {
 	Commitment *[]uint64 `json:"commitment"`
 	TotalStake *uint64
 }
+
+type BlocksResponse struct {
+	Blocks []uint64
+}

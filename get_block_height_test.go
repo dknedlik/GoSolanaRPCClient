@@ -8,7 +8,7 @@ import (
 
 func TestGetBlockHeight(t *testing.T) {
 	client := SolanaClient{
-		RpcEndpoint: "https://api.devnet.solana.com",
+		RpcEndpoint: test_node,
 	}
 	height, err := client.GetBlockHeight()
 	if err != nil {

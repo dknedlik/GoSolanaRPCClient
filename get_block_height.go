@@ -5,17 +5,10 @@ import (
 	"errors"
 	"fmt"
 	"strconv"
-
-	"github.com/google/uuid"
 )
 
 func (c SolanaClient) GetBlockHeight() (uint64, error) {
-	request := RPCRequest{
-		Method:         "getBlockHeight",
-		Params:         nil,
-		Id:             uuid.NewString(),
-		JsonRpcVersion: jsonRpcVersion,
-	}
+	request := getRPCRequest("getBlockHeight", nil)
 	response, err := c.sendRequest(request)
 	if err != nil {
 		return 0, err
