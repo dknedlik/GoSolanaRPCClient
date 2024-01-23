@@ -188,3 +188,17 @@ const (
 	WouldExceedMaxAccountCostLimit     TransactionError = "Would exceed max account cost limit"
 	WouldExceedMaxAccountDataCostLimit TransactionError = "Would exceed max account data cost limit"
 )
+
+type BlockProductionResult struct {
+	ByIdentity map[string][2]uint64 `json:"byIdentity"`
+	Range      BlockProductionRange `json:"range"`
+}
+
+type BlockProductionRange struct {
+	FirstSlot uint64 `json:"firstSlot"`
+	LastSlot  uint64 `json:"lastSlot"`
+}
+type SolBlockProductionResponse struct {
+	Context interface{}           `json:"context"`
+	Value   BlockProductionResult `json:"value"`
+}

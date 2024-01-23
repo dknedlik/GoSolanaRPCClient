@@ -8,12 +8,10 @@ import (
 	"github.com/google/uuid"
 )
 
-func (c SolanaClient) GetBlock(slot uint64) (*BlockResponse, error) {
-	var params [1]interface{}
-	params[0] = slot
+func (c SolanaClient) GetBlockProduction() (*BlockProductionResult, error) {
 	request := RPCRequest{
-		Method:         "getBlock",
-		Params:         params,
+		Method:         "getBlockProduction",
+		Params:         nil,
 		Id:             uuid.NewString(),
 		JsonRpcVersion: jsonRpcVersion,
 	}
@@ -21,23 +19,18 @@ func (c SolanaClient) GetBlock(slot uint64) (*BlockResponse, error) {
 	if err != nil {
 		return nil, err
 	}
-	if response.Result == nil {
-		fmt.Println("No block found")
-		return nil, nil
-	}
 	bytes, err := json.Marshal(response.Result)
 	if err != nil {
-		fmt.Println("Error marshalling get block response")
+		fmt.Println("Error marshalling get block production response")
 		return nil, err
 	}
-	var m BlockResponse
+	var m SolBlockProductionResponse
 	dec := json.NewDecoder(strings.NewReader(string(bytes)))
 	dec.UseNumber()
 	err = dec.Decode(&m)
 	if err != nil {
-		fmt.Println("error decoding get block response")
+		fmt.Println("Could not decode block production result", err)
 		return nil, err
 	}
-
-	return &m, nil
+	return &m.Value, nil
 }

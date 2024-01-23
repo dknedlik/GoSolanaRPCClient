@@ -18,6 +18,7 @@ type SolanaRPCClient interface {
 	GetBalance(id string) (uint64, error)
 	GetBlockHeight() (uint64, error)
 	GetBlock(slot uint64) (*BlockResponse, error)
+	GetBlockProduction() (*BlockProductionResult, error)
 }
 
 const (
