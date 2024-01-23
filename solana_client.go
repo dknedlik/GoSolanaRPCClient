@@ -26,7 +26,8 @@ type SolanaRPCClient interface {
 	GetBlock(slot uint64) (*BlockResponse, error)
 	GetBlockProduction() (*BlockProductionResult, error)
 	GetBlockCommitment(slot uint64) (*BlockCommitmentResponse, error)
-	GetBlocks(startSlot uint64, endSlot *uint64)
+	GetBlocks(startSlot uint64, endSlot *uint64) (*BlocksResponse, error)
+	GetBlocksWithLimit(startSlot uint64, limit uint64) (*BlocksResponse, error)
 }
 
 const (

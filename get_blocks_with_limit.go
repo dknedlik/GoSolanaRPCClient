@@ -7,13 +7,11 @@ import (
 	"strconv"
 )
 
-func (c SolanaClient) GetBlocks(startSlot uint64, endSlot *uint64) (*BlocksResponse, error) {
-	var params []interface{}
-	params = append(params, startSlot)
-	if endSlot != nil {
-		params = append(params, *endSlot)
-	}
-	request := getRPCRequest("getBlocks", params[:])
+func (c SolanaClient) GetBlocksWithLimit(startSlot uint64, limit uint64) (*BlocksResponse, error) {
+	var params [2]interface{}
+	params[0] = startSlot
+	params[1] = limit
+	request := getRPCRequest("getBlocksWithLimit", params[:])
 	response, err := c.sendRequest(request)
 	if err != nil {
 		return nil, err
@@ -24,14 +22,14 @@ func (c SolanaClient) GetBlocks(startSlot uint64, endSlot *uint64) (*BlocksRespo
 	}
 	result, ok := response.Result.([]interface{})
 	if !ok {
-		fmt.Println("GetBlocks -> Could not read uint64 array from results")
-		return nil, errors.New("getBlocks -> could not read array from results")
+		fmt.Println("GetBlocksWithLimit-> Could not read uint64 array from results")
+		return nil, errors.New("getBlocksWithLimit -> could not read array from results")
 	}
 	blocks := []uint64{}
 	for _, v := range result {
 		number, err := strconv.ParseUint(string(v.(json.Number).String()), 10, 64)
 		if err != nil {
-			fmt.Println("invalid format received for block id")
+			fmt.Println("GetBlocksWithLimit-> invalid format received for block id")
 			return nil, err
 		}
 		blocks = append(blocks, number)
