@@ -14,7 +14,7 @@ func TestGetBlocksWithLimti(t *testing.T) {
 	limit := uint64(5)
 	response, err := client.GetBlocksWithLimit(start, limit)
 	if err != nil {
-		t.Fatal("Error getting blocks", err)
+		t.Fatal("Error getting blocks with limit", err)
 	}
 	assert.NotNil(t, response)
 	assert.Equal(t, 5, len(response.Blocks))

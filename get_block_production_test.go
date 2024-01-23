@@ -12,7 +12,7 @@ func TestGetBlockProduction(t *testing.T) {
 	}
 	production, err := client.GetBlockProduction()
 	if err != nil {
-		t.Fatal("Error getting block height")
+		t.Fatal("Error getting block production")
 	}
 	assert.NotNil(t, production)
 	assert.NotNil(t, production.ByIdentity)
