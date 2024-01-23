@@ -11,6 +11,10 @@ import (
 	"github.com/google/uuid"
 )
 
+const (
+	test_node = "https://api.devnet.solana.com"
+)
+
 type SolanaClient struct {
 	RpcEndpoint string
 }
@@ -22,6 +26,7 @@ type SolanaRPCClient interface {
 	GetBlock(slot uint64) (*BlockResponse, error)
 	GetBlockProduction() (*BlockProductionResult, error)
 	GetBlockCommitment(slot uint64) (*BlockCommitmentResponse, error)
+	GetBlocks(startSlot uint64, endSlot *uint64)
 }
 
 const (

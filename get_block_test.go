@@ -8,7 +8,7 @@ import (
 
 func TestGetBlock(t *testing.T) {
 	client := SolanaClient{
-		RpcEndpoint: "https://api.devnet.solana.com",
+		RpcEndpoint: test_node,
 	}
 	response, err := client.GetBlock(262727887)
 	if err != nil {

@@ -8,7 +8,7 @@ import (
 
 func TestGetBlockProduction(t *testing.T) {
 	client := SolanaClient{
-		RpcEndpoint: "https://api.devnet.solana.com",
+		RpcEndpoint: test_node,
 	}
 	production, err := client.GetBlockProduction()
 	if err != nil {
