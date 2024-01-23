@@ -3,13 +3,14 @@ This is a work in progress. Anything checked in is working and has unit tests at
 Basic functionality is simply create a client with the URL of the node you want to query, and use the provided funtions.
 
 ```
-  client := SolanaClient{
+    client := SolanaClient{
 		RpcEndpoint: "https://api.devnet.solana.com",
 	}
 	height, err := client.GetBlockHeight()
 	if err != nil {
 		t.Fatal("Error getting block height")
 	}
+	fmt.Println("Block height is ", height)
 ```
 
 Details of the Solana RPC API can be found here:
