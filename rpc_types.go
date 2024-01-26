@@ -211,3 +211,25 @@ type BlockCommitmentResponse struct {
 type BlocksResponse struct {
 	Blocks []uint64
 }
+
+type ClusterNodesResponse struct {
+	Nodes []NodeInfo
+}
+type NodeInfo struct {
+	Pubkey       string  `json:"pubkey"`       // Node public key, as base-58 encoded string
+	Gossip       *string `json:"gossip"`       // Gossip network address for the node, nullable
+	Tpu          *string `json:"tpu"`          // TPU network address for the node, nullable
+	Rpc          *string `json:"rpc"`          // JSON RPC network address for the node, nullable
+	Version      *string `json:"version"`      // The software version of the node, nullable
+	FeatureSet   *uint32 `json:"featureSet"`   // The unique identifier of the node's feature set, nullable
+	ShredVersion *uint16 `json:"shredVersion"` // The shred version the node has been configured to use, nullable
+}
+
+type EpochInfo struct {
+	AbsoluteSlot     uint64  `json:"absoluteSlot"`     // The current slot
+	BlockHeight      uint64  `json:"blockHeight"`      // The current block height
+	Epoch            uint64  `json:"epoch"`            // The current epoch
+	SlotIndex        uint64  `json:"slotIndex"`        // The current slot relative to the start of the current epoch
+	SlotsInEpoch     uint64  `json:"slotsInEpoch"`     // The number of slots in this epoch
+	TransactionCount *uint64 `json:"transactionCount"` // Total number of transactions processed without error since genesis, nullable
+}
