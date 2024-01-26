@@ -233,3 +233,10 @@ type EpochInfo struct {
 	SlotsInEpoch     uint64  `json:"slotsInEpoch"`     // The number of slots in this epoch
 	TransactionCount *uint64 `json:"transactionCount"` // Total number of transactions processed without error since genesis, nullable
 }
+type EpochSchedule struct {
+	SlotsPerEpoch            uint64 `json:"slotsPerEpoch"`            // The maximum number of slots in each epoch
+	LeaderScheduleSlotOffset uint64 `json:"leaderScheduleSlotOffset"` // The number of slots before the beginning of an epoch to calculate a leader schedule for that epoch
+	Warmup                   bool   `json:"warmup"`                   // Whether epochs start short and grow
+	FirstNormalEpoch         uint64 `json:"firstNormalEpoch"`         // First normal-length epoch, log2(slotsPerEpoch) - log2(MINIMUM_SLOTS_PER_EPOCH)
+	FirstNormalSlot          uint64 `json:"firstNormalSlot"`          // MINIMUM_SLOTS_PER_EPOCH * (2.pow(firstNormalEpoch) - 1)
+}
