@@ -31,6 +31,7 @@ type SolanaRPCClient interface {
 	GetBlockTime(getEpcohInfolot uint64) (uint64, error)
 	GetClusterNodes() (*ClusterNodesResponse, error)
 	GetEpcohInfo() (*EpochInfo, error)
+	GetEpcohSchedule() (*EpochSchedule, error)
 }
 
 const (
